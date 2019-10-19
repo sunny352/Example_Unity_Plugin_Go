@@ -1,0 +1,2 @@
+# Example_Unity_Plugin_Go
+使用Go编写Unity插件的一个示例
