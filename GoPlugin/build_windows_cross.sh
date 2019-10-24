@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-if ! hash x86_64-w64-mingw32-gcc 2>/dev/null; then
-    echo "找不到MinGW，安装"
-    brew install mingw-w64
-fi
-
 export GOPATH=${PWD}:$GOPATH
 export PATH=${PWD}/bin:$PATH
 

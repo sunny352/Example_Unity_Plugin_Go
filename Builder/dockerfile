@@ -1,0 +1,10 @@
+FROM golang:latest
+
+ENV ANDROID_NDK_HOME /opt/android-ndk
+
+RUN apt-get update && apt-get install zip mingw-w64 -y && rm -rf /var/lib/apt/lists/* \
+    && mkdir /opt/android-ndk-tmp \
+    && cd /opt/android-ndk-tmp \
+    && wget https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip \
+    && unzip -o android-ndk-r20-linux-x86_64.zip \
+    && mv ./android-ndk-r20 /opt/android-ndk

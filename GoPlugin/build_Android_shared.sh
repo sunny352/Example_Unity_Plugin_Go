@@ -3,12 +3,12 @@
 export GOPATH=${PWD}:$GOPATH
 export PATH=${PWD}/bin:$PATH
 
-# export ANDROID_NDK_HOME=""
-
-if [[ "$(uname)"=="Darwin" ]];then
-    export NDKARCH="darwin-x86_64"
-elif [[ "$(expr substr $(uname -s) 1 5)"=="Linux" ]];then
-    export NDKARCH="linux-x86_64"
+if [[ ! $NDKARCH ]]; then
+    if [[ "$(uname)"=="Darwin" ]];then
+        export NDKARCH="darwin-x86_64"
+    elif [[ "$(expr substr $(uname -s) 1 5)"=="Linux" ]];then
+        export NDKARCH="linux-x86_64"
+    fi
 fi
 
 export GOOS=android
