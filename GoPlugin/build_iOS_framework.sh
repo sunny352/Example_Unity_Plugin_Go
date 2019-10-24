@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export GOPATH=${PWD}
+export GOPATH=${PWD}:$GOPATH
 export PATH=${PWD}/bin:$PATH
 
 if [[ ! -d ./Plugins/iOS ]]; then

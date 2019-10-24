@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-export GOPATH=${PWD}
+export GOPATH=${PWD}:$GOPATH
 export PATH=${PWD}/bin:$PATH
 
-export ANDROID_NDK_HOME="/Users/zhangmingzhen/Documents/NDK/android-ndk-r20"
-export ANDROID_HOME="/Users/zhangmingzhen/Documents/android_sdk"
+# export ANDROID_NDK_HOME=""
+# export ANDROID_HOME=""
 
 if [[ ! -d ./Plugins/Android ]]; then
     mkdir -p ./Plugins/Android
