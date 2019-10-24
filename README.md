@@ -6,4 +6,5 @@
 编译dll需要安装MinGW-w64
 
 iOS由于是链接静态库，所以archive库和framework库不可以同时存在，否则启动就闪退
+
 Android的Native库需要把.h文件去掉，不然会报告重名
