@@ -10,6 +10,8 @@ public class Main : MonoBehaviour
         Debug.Log(GetTimeString());
         Debug.Log(GetNativeValue());
         Debug.Log(GetPlatformValue());
+        Debug.Log(GetStr());
+        SetStr("测试");
     }
 
     #region NativePlugin
@@ -26,7 +28,7 @@ public class Main : MonoBehaviour
 #else
     [DllImport("NativePlugin")]
 #endif
-    private static extern IntPtr GetTime();
+    private static extern IntPtr GetTime();    //获取IntPtr事实上是获取C内存中的地址，没有做任何操作，所以这块内存不需要的时候就要手动释放
     
 #if UNITY_IOS && !UNITY_EDITOR
     [DllImport ("__Internal")]
@@ -42,6 +44,21 @@ public class Main : MonoBehaviour
         FreeStr(ptr);
         return str;
     }
+    
+#if UNITY_IOS && !UNITY_EDITOR
+    [DllImport ("__Internal")]
+#else
+    [DllImport("NativePlugin")]
+#endif
+    [return: MarshalAs(UnmanagedType.LPUTF8Str)]    //使用这种方式加载字符串的时候，C的内存块会被P/Invoke释放，所以不用手动释放
+    private static extern string GetStr();
+    
+#if UNITY_IOS && !UNITY_EDITOR
+    [DllImport ("__Internal")]
+#else
+    [DllImport("NativePlugin")]
+#endif
+    private static extern void SetStr([MarshalAs(UnmanagedType.LPUTF8Str)]string str);    //使用这种方式加载字符串的时候，C的内存块会被P/Invoke释放，所以不用手动释放
 
     #endregion
 
