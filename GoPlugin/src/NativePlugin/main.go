@@ -8,9 +8,14 @@ import (
 	"unsafe"
 )
 
-/*
-#include <stdlib.h>
-*/
+//
+// #include <stdlib.h>
+//
+// typedef void(*OnEvent)(char*);
+// static void callbackBridge(OnEvent callback, char* callbackInfo)
+// {
+//    callback(callbackInfo);
+// }
 import "C"
 
 //export GetTime
@@ -41,6 +46,14 @@ func main() {
 //export GetNativeValue
 func GetNativeValue() int {
 	return InnerLib.TestFunc()
+}
+
+//export Delay
+func Delay(callback C.OnEvent) {
+	go func() {
+		time.Sleep(time.Second)
+		C.callbackBridge(callback, C.CString(time.Now().String()))
+	}()
 }
 
 func init() {

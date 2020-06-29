@@ -12,6 +12,12 @@ public class Main : MonoBehaviour
         Debug.Log(GetPlatformValue());
         Debug.Log(GetStr());
         SetStr("测试");
+        Delay(OnDelay);
+    }
+
+    private void OnDelay(string info)
+    {
+        Debug.Log(info);
     }
 
     #region NativePlugin
@@ -60,6 +66,13 @@ public class Main : MonoBehaviour
 #endif
     private static extern void SetStr([MarshalAs(UnmanagedType.LPUTF8Str)]string str);    //使用这种方式加载字符串的时候，C的内存块会被P/Invoke释放，所以不用手动释放
 
+    public delegate void Callback(string callbackInfo);
+#if UNITY_IOS && !UNITY_EDITOR
+    [DllImport ("__Internal")]
+#else
+    [DllImport("NativePlugin")]
+#endif
+    private static extern void Delay(Callback callback);
     #endregion
 
     #region PlatformPlugin
